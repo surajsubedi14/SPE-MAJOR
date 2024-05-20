@@ -2,9 +2,9 @@
 - hosts: localhost
   tasks:
     - name: Pull Docker image from Docker Hub
-      shell: docker pull surajiiitb/ecommercebackend:latest
+      shell: docker pull surajiiitb/ecommercefrontend:latest
 
 
 
     - name: Run Docker container
-      shell: docker run -d -p 8081:8080 surajiiitb/ecommercebackend:latest
+      shell: docker run -d -p 8081:8080 surajiiitb/ecommercefrontend:latest

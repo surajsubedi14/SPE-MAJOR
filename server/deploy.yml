@@ -7,4 +7,4 @@
 
 
     - name: Run Docker container
-      shell: docker run -d -p 8081:8080 surajiiitb/ecommercebackend:latest
+      shell: docker run -d -p 5454:8080 surajiiitb/ecommercebackend:latest

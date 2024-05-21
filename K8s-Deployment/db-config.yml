@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-db-config
+data:
+  DATABASE_URL: "jdbc:mysql://ecommerce-db-service:3306/ecommerce"
+  MYSQL_ROOT_PASSWORD: "root"
+  MYSQL_USER: "root"
+  MYSQL_DATABASE: "exam-portal"
+  HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
+  DDL_AUTO: "update"

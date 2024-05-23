@@ -38,9 +38,11 @@ kind: Service
 metadata:
   name: ecommerce-frontend-service
 spec:
+  type: LoadBalancer
   selector:
     app.kubernetes.io/name: ecommerce-frontend
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
+      nodePort: 31432

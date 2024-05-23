@@ -5,3 +5,4 @@ metadata:
 data:
   BACKEND_HOST: "ecommerce-backend-service"
   BACKEND_PORT: "8080"
+  BACKEND_URL: "http://ecommerce-backend-service:8080"

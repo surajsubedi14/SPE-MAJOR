@@ -4,8 +4,8 @@ metadata:
   name: ecommerce-db-config
 data:
   DATABASE_URL: "jdbc:mysql://ecommerce-db-service:3306/ecommerce"
-  MYSQL_ROOT_PASSWORD: "root"
+  MYSQL_ROOT_PASSWORD: "Suraj@596"
   MYSQL_USER: "root"
-  MYSQL_DATABASE: "exam-portal"
+  MYSQL_DATABASE: "ecommerce"
   HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL8Dialect"
   DDL_AUTO: "update"

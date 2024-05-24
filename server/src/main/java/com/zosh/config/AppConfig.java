@@ -2,6 +2,7 @@ package com.zosh.config;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +51,8 @@ public class AppConfig {
 								
 							)
 						);
+                        cfg.addAllowedMethod("OPTIONS");
+                        cfg.setAllowedMethods(List.of("*"));
 						cfg.setAllowedMethods(Arrays.asList("GET", "POST","DELETE","PUT","OPTIONS"));
 						cfg.setAllowedMethods(Collections.singletonList("*"));
 						cfg.setAllowCredentials(true);

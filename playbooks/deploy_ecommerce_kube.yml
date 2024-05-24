@@ -28,13 +28,13 @@
 
     - name: Database Configurations Setup
       kubernetes.core.k8s:
-        kubeconfig: /etc/ansible/kube/config
+        kubeconfig: /etc/ansible/kube/.kube/config
         state: present
         definition: "{{ lookup('template', '../k8s-deploy/db-config.yml.j2') }}"
 
     - name: Database Deployment
       kubernetes.core.k8s:
-        kubeconfig: /etc/ansible/kube/config
+        kubeconfig: /etc/ansible/kube/.kube/config
         state: present
         definition: "{{ lookup('template', '../k8s-deploy/db-deployment-service.yml.j2') }}"
 
@@ -62,13 +62,13 @@
 
     - name: Backend Configurations Setup
       kubernetes.core.k8s:
-        kubeconfig: /etc/ansible/kube/config
+        kubeconfig: /etc/ansible/kube/.kube/config
         state: present
         definition: "{{ lookup('template', '../k8s-deploy/backend-config.yml.j2') }}"
 
     - name: Backend Deployment
       kubernetes.core.k8s:
-        kubeconfig: /etc/ansible/kube/config
+        kubeconfig: /etc/ansible/kube/.kube/config
         state: present
         definition: "{{ lookup('template', '../k8s-deploy/backend-deployment-service.yml.j2') }}"
 
@@ -96,7 +96,7 @@
 
     - name: Frontend Deployment
       kubernetes.core.k8s:
-        kubeconfig: /etc/ansible/kube/config
+        kubeconfig: /etc/ansible/kube/.kube/config
         state: present
         definition: "{{ lookup('template', '../k8s-deploy/frontend-deployment-service.yml.j2') }}"
 

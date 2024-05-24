@@ -49,7 +49,7 @@ public class AppConfig {
 								
 							)
 						);
-						//cfg.setAllowedMethods(Arrays.asList("GET", "POST","DELETE","PUT"));
+						cfg.setAllowedMethods(Arrays.asList("GET", "POST","DELETE","PUT","OPTIONS"));
 						cfg.setAllowedMethods(Collections.singletonList("*"));
 						cfg.setAllowCredentials(true);
 						cfg.setAllowedHeaders(Collections.singletonList("*"));

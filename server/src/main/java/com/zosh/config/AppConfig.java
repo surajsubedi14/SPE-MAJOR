@@ -51,6 +51,7 @@ public class AppConfig {
 								
 							)
 						);
+                        cfg.setAllowedHeaders(List.of("Content-Type","text/plain","Authorization"));
                         cfg.addAllowedMethod("OPTIONS");
                         cfg.setAllowedMethods(List.of("*"));
 						cfg.setAllowedMethods(Arrays.asList("GET", "POST","DELETE","PUT","OPTIONS"));

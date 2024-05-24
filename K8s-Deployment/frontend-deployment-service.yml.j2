@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ecommerce-frontend-deployment
+  namespace: default
   labels:
     app: ecommerce-frontend
 spec:
@@ -30,6 +31,12 @@ spec:
                 configMapKeyRef:
                   name: ecommerce-backend-config
                   key: BACKEND_PORT
+
+             - name: BACKEND_URL
+               valueFrom:
+                 configMapKeyRef:
+                   name: ecommerce-backend-config
+                   key: BACKEND_URL
 
 ---
 

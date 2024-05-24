@@ -23,6 +23,7 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d/default.conf
 
+
 # Expose port 80 to allow outside access to the app
 EXPOSE 80
 

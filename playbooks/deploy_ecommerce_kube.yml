@@ -3,18 +3,18 @@
   hosts: all
   tasks:
     - name: apply secret
-      shell: ../k8s-deploy/kubectl apply -f db-deployment-service.yml
+      shell: kubectl apply -f ../k8s-deploy/db-deployment-service.yml
     - name: apply secret2
-      shell: ../k8s-deploy/kubectl apply -f db-config.yml
+      shell: ../k8s-deploy/kubectl apply -f ../k8s-deploy/db-config.yml
 
     - name: apply backend
-      shell: ../k8s-deploy/kubectl apply -f backend-deployment-service.yml
+      shell: ../k8s-deploy/kubectl apply -f ../k8s-deploy/backend-deployment-service.yml
 
     - name: apply backend1
-      shell: ../k8s-deploy/kubectl apply -f backend-config.yml
+      shell: ../k8s-deploy/kubectl apply -f ../k8s-deploy/backend-config.yml
 
     - name: apply frontend
-      shell: ../k8s-deploy/kubectl apply -f frontend-deployment-service.yml
+      shell: ../k8s-deploy/kubectl apply -f ../k8s-deploy/frontend-deployment-service.yml
 
     # - name: apply elasticsearch
     #   shell: kubectl apply -f ../kubernetes-config/elasticsearch.yaml

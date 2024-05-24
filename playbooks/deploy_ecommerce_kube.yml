@@ -1,123 +1,29 @@
 ---
-- name: Deploy ecommerce application
-  hosts: localhost
-  gather_facts: False
+- name: Deploy Ecommerce app to minikube
+  hosts: all
   tasks:
-    # - name: Ensure Docker is installed
-    #   apt:
-    #     name: docker.io
-    #     state: present
-    #   become: true
+    - name: apply secret
+      shell: kubectl apply -f db-deployment-service.yml
+    - name: apply secret2
+      shell: kubectl apply -f db-config.yml
 
-    # - name: Ensure Docker Compose is installed
-    #   get_url:
-    #     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m`
-    #     dest: /usr/local/bin/docker-compose
-    #     mode: '0755'
-    #   become: true
-    #   when: ansible_distribution == "Ubuntu"
+    - name: apply backend
+      shell: kubectl apply -f backend-deployment-service.yml
 
-    # - name: Apply db config
-    #   shell: kubectl apply -f ../k8s-deploy/db-config.yml
+    - name: apply backend1
+      shell: kubectl apply -f backend-config.yml
 
-    - name: Pull frontend from Docker Hub
-      shell: docker pull surajiiitb/ecommercefrontend:latest
+    - name: apply frontend
+      shell: kubectl apply -f frontend-deployment-service.yml
 
-    - name: Pull backend from Docker Hub
-      shell: docker pull surajiiitb/ecommercebackend:latest
+    # - name: apply elasticsearch
+    #   shell: kubectl apply -f ../kubernetes-config/elasticsearch.yaml
 
-    - name: Database Configurations Setup
-      kubernetes.core.k8s:
-        # kubeconfig: /etc/ansible/kube
-        state: present
-        definition: "{{ lookup('template', '../k8s-deploy/db-config.yml.j2') }}"
+    # - name: apply logstash
+    #   shell: kubectl apply -f ../kubernetes-config/logstash.yaml
 
-    - name: Database Deployment
-      kubernetes.core.k8s:
-        # kubeconfig: /etc/ansible/kube/.kube/config
-        state: present
-        definition: "{{ lookup('template', '../k8s-deploy/db-deployment-service.yml.j2') }}"
+    # - name: apply kibana
+    #   shell: kubectl apply -f ../kubernetes-config/kibana.yaml
 
-    # - name: Wait for Database Pods to be Running
-    #   k8s_info:
-    #     api_version: v1
-    #     kind: Pod
-    #     namespace: default
-    #     label_selectors:
-    #       - app=otms-db
-    #   register: db_pods
-    #   until: db_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #         selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length > 0
-    #   retries: 10
-    #   delay: 10
-    #   failed_when: db_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #               selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length == 0
-    #   ignore_errors: yes
-
-    # - name: Fail if Database Pods are not Running
-    #   fail:
-    #     msg: "Database service is not ready after waiting for {{ retries * delay }} seconds."
-    #   when: db_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #         selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length == 0
-
-    - name: Backend Configurations Setup
-      kubernetes.core.k8s:
-        # kubeconfig: /etc/ansible/kube/.kube/config
-        state: present
-        definition: "{{ lookup('template', '../k8s-deploy/backend-config.yml.j2') }}"
-
-    - name: Backend Deployment
-      kubernetes.core.k8s:
-        # kubeconfig: /etc/ansible/kube/.kube/config
-        state: present
-        definition: "{{ lookup('template', '../k8s-deploy/backend-deployment-service.yml.j2') }}"
-
-    # - name: Wait for Backend Pods to be Running
-    #   k8s_info:
-    #     api_version: v1
-    #     kind: Pod
-    #     namespace: default
-    #     label_selectors:
-    #       - app=backend
-    #   register: backend_pods
-    #   until: backend_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #         selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length > 0
-    #   retries: 10
-    #   delay: 10
-    #   failed_when: backend_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #               selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length == 0
-    #   ignore_errors: yes
-
-    # - name: Fail if Backend Pods are not Running
-    #   fail:
-    #     msg: "Backend service is not ready after waiting for {{ retries * delay }} seconds."
-    #   when: backend_pods.resources | selectattr('status.containerStatuses', 'defined') |
-    #         selectattr('status.containerStatuses[0].ready', 'equalto', true) | list | length == 0
-
-    - name: Frontend Deployment
-      kubernetes.core.k8s:
-        # kubeconfig: /etc/ansible/kube/.kube/config
-        state: present
-        definition: "{{ lookup('template', '../k8s-deploy/frontend-deployment-service.yml.j2') }}"
-
-    # - name: Wait for Frontend Service to be Running
-    #   k8s_info:
-    #     api_version: v1
-    #     kind: Service
-    #     namespace: default
-    #     name: otms-frontend-service
-    #   register: frontend_service
-    #   until: frontend_service.resources[0].spec.ports[0].nodePort is defined
-    #   retries: 10
-    #   delay: 10
-    #   failed_when: frontend_service.resources[0].spec.ports[0].nodePort is not defined
-    #   ignore_errors: yes
-
-    # - name: Fail if Frontend Service is not Running
-    #   fail:
-    #     msg: "Frontend service is not ready after waiting for {{ retries * delay }} seconds."
-    #   when: frontend_service.resources[0].spec.ports[0].nodePort is not defined
-
-    # - name: Print Frontend Service URL
-    #   debug:
-    #     msg: "Frontend Service is available at http://{{ hostvars['localhost']['ansible_default_ipv4']['address'] }}:{{ frontend_service.resources[0].spec.ports[0].nodePort }}"
+    # - name: apply filebeat
+    #   shell: kubectl apply -f ../kubernetes-config/filebeat.yaml
